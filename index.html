@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Action Labs — Documentation</title>
+  <link rel="stylesheet" href="documentation/assets/style.css" />
+  <style>
+    body { background: #f8fafc; }
+    .home-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+    }
+    .home-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #2563eb;
+      margin: 0 0 8px;
+    }
+    .home-title {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      margin: 0 0 14px;
+      line-height: 1.15;
+    }
+    .home-lead {
+      font-size: 17px;
+      color: #475569;
+      margin: 0 0 36px;
+      line-height: 1.6;
+    }
+    .home-cards {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 640px) {
+      .home-cards { grid-template-columns: 1fr; }
+      .home-title { font-size: 30px; }
+    }
+    .home-card {
+      display: block;
+      padding: 22px 22px 24px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+    }
+    .home-card:hover {
+      border-color: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.10);
+      text-decoration: none;
+    }
+    .home-card-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .home-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0 0 6px;
+    }
+    .home-card-desc {
+      font-size: 13.5px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.55;
+    }
+    .home-card-cta {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #2563eb;
+    }
+    .home-meta {
+      margin-top: 36px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="home-wrap">
+    <p class="home-eyebrow">Fieldproxy · Action Labs</p>
+    <h1 class="home-title">Action Labs Web Documentation</h1>
+    <p class="home-lead">
+      Reference for every web view in the Action Labs Fieldproxy build —
+      Project Metrics, the Project Management dashboard, and the full Field Service
+      Management module. Pick a side.
+    </p>
+
+    <div class="home-cards">
+      <a class="home-card" href="documentation/index.html">
+        <div class="home-card-icon">📖</div>
+        <p class="home-card-title">Read the Docs</p>
+        <p class="home-card-desc">
+          Written reference for all 20 web views — what each screen does, the
+          filters, the sections, and the interactions.
+        </p>
+        <p class="home-card-cta">Open documentation →</p>
+      </a>
+
+      <a class="home-card" href="walkthrough_videos/videos.html">
+        <div class="home-card-icon">▶</div>
+        <p class="home-card-title">Walkthrough Videos</p>
+        <p class="home-card-desc">
+          Loom recording for each view, lined up next to its written entry. Easier
+          to share with non-technical stakeholders.
+        </p>
+        <p class="home-card-cta">Watch videos →</p>
+      </a>
+    </div>
+
+    <p class="home-meta">Web views only. Mobile and admin documentation will live in their own folders.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Action Labs — Web Documentation</title>
+  <meta name="description" content="Documentation for all web views in the Action Labs Fieldproxy application." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <p class="brand-title">Action Labs</p>
+        <p class="brand-subtitle">Web App Documentation</p>
+      </div>
+
+      <nav>
+        <div class="nav-group">
+          <p class="nav-group-label">Start here</p>
+          <ul class="nav-list">
+            <li><a href="#overview">Overview</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <p class="nav-group-label">Action Labs Web App</p>
+          <ul class="nav-list">
+            <li><a href="#project-metrics">Project Metrics</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <p class="nav-group-label">Project Management</p>
+          <ul class="nav-list">
+            <li><a href="#pm-dashboards">Dashboards</a></li>
+            <li><a href="#pm-container">Project Management Container</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <p class="nav-group-label">FSM — Operations</p>
+          <ul class="nav-list">
+            <li><a href="#fsm-main-dashboard">Main Dashboard</a></li>
+            <li><a href="#fsm-dashboard">Dashboard</a></li>
+            <li><a href="#fsm-schedule">Schedule / Dispatch Board</a></li>
+            <li><a href="#fsm-location-intelligence">Location Intelligence</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <p class="nav-group-label">FSM — Jobs</p>
+          <ul class="nav-list">
+            <li><a href="#fsm-jobs">Jobs List</a></li>
+            <li><a href="#fsm-jobs-all-data">Jobs All Data</a></li>
+            <li><a href="#fsm-job-detail">Job Detail View</a></li>
+            <li><a href="#fsm-edit-job">Edit Job</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <p class="nav-group-label">FSM — Reports</p>
+          <ul class="nav-list">
+            <li><a href="#fsm-jobs-report">Jobs Report</a></li>
+            <li><a href="#fsm-sla-report">SLA Report</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <p class="nav-group-label">FSM — Workforce</p>
+          <ul class="nav-list">
+            <li><a href="#fsm-skill-set-mapping">Skill Set Mapping</a></li>
+            <li><a href="#fsm-time-off">Time Off</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <p class="nav-group-label">Customer</p>
+          <ul class="nav-list">
+            <li><a href="#cust-companies">Companies</a></li>
+            <li><a href="#cust-company-detail">Company Detail</a></li>
+            <li><a href="#cust-contacts">Contacts</a></li>
+            <li><a href="#cust-contact-detail">Contact Detail</a></li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <p class="nav-group-label">Container</p>
+          <ul class="nav-list">
+            <li><a href="#fsm-container">FSM Master Container</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="crumb">Action Labs / Documentation</div>
+        <div class="topbar-actions">
+          <a class="pill" href="../">Back to Home</a>
+          <a class="pill primary" href="../walkthrough_videos/videos.html">Walkthrough Videos →</a>
+        </div>
+      </div>
+
+      <h1 class="page-title">Action Labs — Web App Documentation</h1>
+      <p class="page-lead">
+        Reference for every web view in the Action Labs Fieldproxy app. Covers what each
+        screen does, the filters and sections it exposes, and how it connects to the
+        rest of the workflow.
+      </p>
+
+      <!-- ============================================================ -->
+      <!-- OVERVIEW                                                     -->
+      <!-- ============================================================ -->
+      <section id="overview" class="view-section">
+        <h2>Overview</h2>
+        <p>
+          Action Labs runs a field service operation across multiple clusters, with
+          field engineers (FEs) resolving customer tickets on a billing model tied to
+          shift hours and per-hour rates. The Fieldproxy build is split into three web
+          modules:
+        </p>
+        <ul>
+          <li>
+            <strong>Action Labs Web App</strong> — the billing dashboard
+            (<em>Project Metrics</em>) used by finance to see what's billable to the
+            project versus what's billable to Action Labs.
+          </li>
+          <li>
+            <strong>Project Management</strong> — a 30-day rolling operations
+            dashboard showing resolved-ticket counts, FE hours, and amount summaries
+            per project.
+          </li>
+          <li>
+            <strong>Field Service Management (FSM)</strong> — the day-to-day team-leader
+            tool: dashboards, job board, schedule/dispatch, jobs reports, SLA report,
+            workforce screens (skill mapping, time-off), and the customer / contact
+            screens.
+          </li>
+        </ul>
+
+        <h3>Status legend</h3>
+        <p>
+          Several views (Main Dashboard, Jobs, Jobs Report, Project Metrics) bucket
+          tickets by status. The four statuses below are treated as
+          "billable / completed" everywhere a ticket count is shown.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Status</th><th>Meaning</th><th>Counted as completed</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="badge green">Resolved</span></td><td>Engineer closed the ticket and customer accepted.</td><td>Yes</td></tr>
+              <tr><td><span class="badge green">Resolved – Incomplete</span></td><td>Closed but with pending sub-task (e.g., spare follow-up).</td><td>Yes</td></tr>
+              <tr><td><span class="badge blue">Closed</span></td><td>Administratively closed.</td><td>Yes</td></tr>
+              <tr><td><span class="badge amber">Accepted / Open</span></td><td>Engineer has acknowledged but not yet started.</td><td>No</td></tr>
+              <tr><td><span class="badge amber">Job Started / In Transit</span></td><td>Engineer is en route or on site.</td><td>No</td></tr>
+              <tr><td><span class="badge amber">On Hold (Spares)</span></td><td>Waiting on parts.</td><td>No</td></tr>
+              <tr><td><span class="badge purple">For Revisit</span></td><td>Customer asked for a return visit.</td><td>No</td></tr>
+              <tr><td><span class="badge red">Cancelled</span></td><td>Ticket withdrawn before work began.</td><td>No</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout info">
+          <strong>Looking for a video?</strong>
+          Each view has a Loom walkthrough on the
+          <a href="../walkthrough_videos/videos.html">Walkthrough Videos</a> page.
+        </div>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- MODULE: ACTION LABS WEB APP                                  -->
+      <!-- ============================================================ -->
+      <div class="module-heading">
+        <p class="label">Module</p>
+        <h2>Action Labs Web App</h2>
+        <p>The billing dashboard — used by finance to slice billable hours by project, employee, and date.</p>
+      </div>
+
+      <section id="project-metrics" class="view-section">
+        <h2>Project Metrics</h2>
+        <p class="section-meta">Web App / project_metrics.json &nbsp;·&nbsp; homescreen.json (same view, two filenames)</p>
+        <p>
+          The single billing dashboard for Action Labs. Combines completed-ticket data
+          (<code>tickets_management</code>) with attendance
+          (<code>attendance_management</code>) and the per-project rate card
+          (<code>project_billing</code>) to compute three numbers:
+          billable to project, billable to Action Labs (idle hours during shift),
+          and total amount.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Finance opens this once a billing cycle to reconcile what each FE earned
+          their project versus the hours Action Labs covered when the FE was on shift
+          but not on a ticket.
+        </p>
+
+        <h3>Filters</h3>
+        <ul>
+          <li>Project Name (dropdown)</li>
+          <li>Cluster (text)</li>
+          <li>Employee Name (dropdown)</li>
+          <li>Ticket Completed Date — from / to</li>
+          <li>Apply / Clear buttons</li>
+        </ul>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>KPI cards</strong> — Total Resolved Tickets, Total FEs, Total Hours, Billable to Project, Billable to Action Labs, Total Amount.</li>
+          <li><strong>Breakdown Per Project</strong> — bar chart, top projects by billable amount.</li>
+          <li><strong>Billable Per Day</strong> — line chart of daily billing.</li>
+          <li><strong>Billable to Project table</strong> — per-ticket detail (employee, project, ticket #, in-transit time, completed-at, total hours, amount, shift start/end).</li>
+          <li><strong>Billable to Action Labs table</strong> — per-day attendance vs ticket hours, with the idle-hour amount Action Labs absorbs.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Apply / Clear refresh every KPI, table, and chart in one chained <code>update_data</code> action.</li>
+          <li>Tables expose pagination + search; rows are read-only.</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- MODULE: PROJECT MANAGEMENT                                   -->
+      <!-- ============================================================ -->
+      <div class="module-heading">
+        <p class="label">Module</p>
+        <h2>Project Management</h2>
+        <p>The 30-day rolling operations summary — same numbers as Project Metrics, but always scoped to the last 30 days.</p>
+      </div>
+
+      <section id="pm-dashboards" class="view-section">
+        <h2>Dashboards</h2>
+        <p class="section-meta">Project Management / dashboards.json</p>
+        <p>
+          A snapshot dashboard of resolved-ticket activity over the trailing 30 days.
+          No filters — it always shows the same window — so it works as a
+          "what's happening this month" landing page.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Quick health check for ops leads: who delivered tickets this month, how
+          much it cost, and which projects pulled the most engineering hours.
+        </p>
+
+        <h3>Filters</h3>
+        <ul><li>None — fixed last-30-days window.</li></ul>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>KPI cards</strong> — Total Resolved Tickets, Total FEs, Total Hours, Billable to Project, Billable to Action Labs, Total Amount.</li>
+          <li><strong>Billable to Project table</strong> — large detail table, paginated, searchable.</li>
+          <li><strong>Billable to Action Labs table</strong> — paginated daily attendance breakdown.</li>
+          <li><strong>Bar chart</strong> — top 10 projects by billable amount.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>In-table search and pagination.</li>
+          <li>Sidebar navigation between PM views.</li>
+        </ul>
+      </section>
+
+      <section id="pm-container" class="view-section">
+        <h2>Project Management Container</h2>
+        <p class="section-meta">Project Management / project_management.json</p>
+        <p>
+          A master container file that wires the Project Management module's sidebar
+          to its child views. Not a screen users land on directly — it's the shell.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Defines the navigation tree for the PM module so the Fieldproxy runtime knows
+          which views show up in the sidebar and where each link goes.
+        </p>
+
+        <h3>Notes</h3>
+        <ul>
+          <li>If you add a new view to Project Management, register its
+          <code>app_id</code> / <code>view_id</code> here so the sidebar links resolve.</li>
+          <li>Style changes to the sidebar (header, color, active-state) live in this file.</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- MODULE: FIELD SERVICE MANAGEMENT                             -->
+      <!-- ============================================================ -->
+      <div class="module-heading">
+        <p class="label">Module</p>
+        <h2>Field Service Management</h2>
+        <p>The team-leader tool — daily dispatch, ticket triage, reports, and customer screens. The largest module by view count.</p>
+      </div>
+
+      <section id="fsm-main-dashboard" class="view-section">
+        <h2>Main Dashboard</h2>
+        <p class="section-meta">Field Service Management / Web App / main_dashboard.json</p>
+        <p>
+          The home screen of the FSM module. Shows live ticket status, ETA-based KPIs,
+          and a priority-level breakdown across all clusters. This is the screen
+          team leaders refresh through the day.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          One-glance answer to "what does my cluster look like right now?" — what's
+          open, what's in transit, what's on hold for spares, what slipped past ETA.
+        </p>
+
+        <h3>Filters</h3>
+        <ul>
+          <li>Cluster (dropdown — defaults to "All Clusters")</li>
+          <li>Date range (from / to)</li>
+        </ul>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Live Job Status</strong> — counts of accepted/open, in-transit, resolved, closed, for-revisit, on-hold, etc.</li>
+          <li><strong>ETA tickets</strong> &amp; <strong>ETA updated</strong> — slippage tracking.</li>
+          <li><strong>Average visit time</strong> KPI.</li>
+          <li><strong>Priority Levels</strong> — count by P1 / P2 / P3.</li>
+          <li><strong>Analytics</strong> section — charts derived from the same dataset.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Sidebar navigation to every other FSM screen.</li>
+          <li>Cluster &amp; date filter applies to all status counts.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-dashboard" class="view-section">
+        <h2>Dashboard</h2>
+        <p class="section-meta">Field Service Management / Web App / dashboard.json</p>
+        <p>
+          A secondary, more visualization-heavy dashboard. Where Main Dashboard
+          focuses on counts, this one leans on charts and a map of FE activity.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Visual snapshot for week-in-review meetings — open ticket count, jobs
+          completed, active engineers, average visit time, plus category mix and
+          live FE locations.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>KPI cards</strong> — Open Tickets, Jobs Completed, Active Engineers, Avg Visit Time.</li>
+          <li><strong>Status bar chart</strong> — ticket counts per status.</li>
+          <li><strong>Category donut</strong> — share of tickets by category.</li>
+          <li><strong>Activity map</strong> — FE pins keyed by latest activity.</li>
+          <li><strong>Activity list</strong> — paginated companion to the map (click to focus a marker).</li>
+          <li><strong>Jobs table</strong> — recent tickets with search and pagination.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Click an item in the activity list to highlight its marker on the map.</li>
+          <li>Pagination on both jobs table and activity list.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-schedule" class="view-section">
+        <h2>Schedule / Dispatch Board</h2>
+        <p class="section-meta">Field Service Management / Web App / schedule.json</p>
+        <p>
+          The weekly dispatch board. Technicians on the Y-axis, days of the week on
+          the X-axis, and a pool of unscheduled jobs alongside. Drag-and-drop a job
+          card onto a technician-day cell to assign it.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          The primary scheduling tool. Replaces the old "WhatsApp + spreadsheet"
+          loop with a visual board so leads can see capacity at a glance.
+        </p>
+
+        <h3>Filters</h3>
+        <ul>
+          <li>Cluster (dropdown)</li>
+          <li>Employee (dropdown)</li>
+          <li>Schedule stats summary at the top</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Drag job card → technician × date cell to assign.</li>
+          <li>Click a job card to view or edit its details.</li>
+          <li>Unscheduled-jobs pool drains as you assign.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Layout note:</strong> the sticky-filter pattern with dropdowns is
+          known not to render correctly on this view — keep filters non-sticky.
+        </div>
+      </section>
+
+      <section id="fsm-location-intelligence" class="view-section">
+        <h2>Location Intelligence</h2>
+        <p class="section-meta">Field Service Management / Web App / location_intelligence.json</p>
+        <p>
+          A pivot of clusters × ticket statuses. Each cell is a count, so you can
+          see at a glance which cluster has the most cancelled tickets, the most
+          on-hold tickets, etc.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Cross-cluster comparison. Useful when a regional manager wants to know
+          which cluster is under-performing on resolution or has unusually high
+          cancellations.
+        </p>
+
+        <h3>Filters</h3>
+        <ul>
+          <li>Cluster dropdown</li>
+          <li>"Search by Cluster" text input</li>
+        </ul>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Cluster × Status pivot table</strong> — clusters as rows, statuses as columns, ticket counts in each cell.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-jobs" class="view-section">
+        <h2>Jobs List</h2>
+        <p class="section-meta">Field Service Management / Web App / jobs.json</p>
+        <p>
+          The day-to-day ticket board. A paginated table with rich filters across
+          status, priority, contact, employee, category, and service type.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Where team leaders triage. Filter to "P1 + Open" first thing in the morning
+          to see what needs an FE assigned now.
+        </p>
+
+        <h3>Filters</h3>
+        <ul>
+          <li>Date range (defaults from <code>default_dates</code>)</li>
+          <li>Status, Priority, Category, Service Type (dropdowns)</li>
+          <li>Contact, Contact Name, Employee (dropdowns)</li>
+          <li>KPI strip with quick-filter counts</li>
+        </ul>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>KPI strip</strong> — counts by major status.</li>
+          <li><strong>Jobs table</strong> — paginated, searchable, with row-action buttons.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Click a row to open <a href="#fsm-job-detail">Job Detail View</a>.</li>
+          <li>Edit button → <a href="#fsm-edit-job">Edit Job</a>.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-jobs-all-data" class="view-section">
+        <h2>Jobs All Data</h2>
+        <p class="section-meta">Field Service Management / Web App / jobs_all_data.json</p>
+        <p>
+          A "raw" jobs view — every column from <code>tickets_management</code>
+          surfaced as a wide, scrollable table. Designed for power users who need
+          to filter on a column the standard Jobs view doesn't expose.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Search-by-anything escape hatch when the Jobs List filters aren't enough,
+          and source-of-truth for ad-hoc CSV exports.
+        </p>
+
+        <h3>Filters</h3>
+        <ul>
+          <li>"Search by …" dropdown — pick a column (Ticket ID, Hospital, Employee, etc.)</li>
+          <li>Search text input</li>
+          <li>Search / Clear buttons</li>
+        </ul>
+
+        <div class="callout info">
+          <strong>Canonical pattern.</strong> This file is the canonical reference for
+          the <em>dropdown-driven search</em> pattern: a "Search By" dropdown whose
+          values match a SQL <code>CASE</code> ladder byte-for-byte, plus a text input
+          and Search/Clear buttons that call <code>update_data</code> on the table and
+          its count query. Other client builds clone this view's
+          <code>row_search</code> block.
+        </div>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Heavy-table pagination trio (<code>pageSize: 25</code> / <code>min_lines: 10</code> / <code>page_size: 100</code>) — required because the underlying table has thousands of rows.</li>
+          <li>CSV export from the actions row.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-job-detail" class="view-section">
+        <h2>Job Detail View</h2>
+        <p class="section-meta">Field Service Management / Web App / jobs_detailed_view.json</p>
+        <p>
+          Full read-out for a single ticket. Pulls together job metadata, the FE
+          activity log, expense receipts, the on-site checklist, and the job
+          location on a map.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          What a team leader opens when investigating a specific ticket — usually
+          because of a customer complaint, an SLA breach, or to verify expense
+          claims before approving them.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Header</strong> — ticket title and <code>#TICKET_ID</code>.</li>
+          <li><strong>Job Details</strong> — customer, address, priority, status, ETAs, employee assigned.</li>
+          <li><strong>Visit data</strong> — every check-in / check-out for the ticket.</li>
+          <li><strong>Activity log</strong> — chronological events.</li>
+          <li><strong>Expense data</strong> — receipts uploaded by the FE.</li>
+          <li><strong>Checklist</strong> — completed checklist items.</li>
+          <li><strong>Job location map</strong> — pin at the customer site.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Edit action → <a href="#fsm-edit-job">Edit Job</a>.</li>
+          <li>Pagination on activity-log, visit, expense, and checklist sub-tables.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-edit-job" class="view-section">
+        <h2>Edit Job</h2>
+        <p class="section-meta">Field Service Management / Web App / edit_job.json</p>
+        <p>
+          The form view for editing a ticket. Loads the current values into inputs
+          (location, ETA, employee, priority, status, etc.) and writes back via an
+          <code>UPDATE</code> query.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Lets a team leader fix or update ticket fields after creation —
+          re-assign engineer, push an ETA, change priority, correct address.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li>Header with the ticket title.</li>
+          <li>Form fields grouped by category (location, scheduling, assignment, status).</li>
+          <li>Save / Cancel actions.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Save behavior:</strong> uses the
+          <code>COALESCE(NULLIF(input,''), col)</code> "preserve unchanged on edit"
+          pattern, with explicit casts (<code>::timestamptz</code>,
+          <code>::time</code>, etc.) per column type so date / time / numeric fields
+          don't silently fail.
+        </div>
+      </section>
+
+      <section id="fsm-jobs-report" class="view-section">
+        <h2>Jobs Report</h2>
+        <p class="section-meta">Field Service Management / Web App / jobs_report.json</p>
+        <p>
+          Multi-pivot report screen. Slices the same job dataset by date, employee,
+          company, and contact — each as its own table — so you can answer
+          "who handled the most jobs this month?" and "which company gave us the
+          most tickets?" in one place.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          Monthly / quarterly review. Often exported and pasted into a deck.
+        </p>
+
+        <h3>Filters</h3>
+        <ul><li>Date range, Cluster, Status, Priority, Employee, Customer (combined apply button)</li></ul>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Date breakdown</strong> table.</li>
+          <li><strong>Employee breakdown</strong> table.</li>
+          <li><strong>Company breakdown</strong> table.</li>
+          <li><strong>Contact breakdown</strong> table.</li>
+          <li><strong>Jobs table</strong> — flat list under the breakdowns.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Per-table CSV export.</li>
+          <li>Pagination on every breakdown table.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-sla-report" class="view-section">
+        <h2>SLA Report</h2>
+        <p class="section-meta">Field Service Management / Web App / sla_report.json</p>
+        <p>
+          Customer-wise SLA compliance: response time, resolution time, and breach
+          counts compared against contractual targets.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          What account managers send to customers ahead of the QBR — proof of SLA
+          performance, broken down by company.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>SLA Report — Customer Wise</strong> table (paginated).</li>
+          <li>Record count and CSV export in the actions row.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>"Total: <em>N</em> records" counter that updates with the table data.</li>
+          <li>CSV export action.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-skill-set-mapping" class="view-section">
+        <h2>Skill Set Mapping</h2>
+        <p class="section-meta">Field Service Management / Web App / skill_set_mapping.json</p>
+        <p>
+          Maps each FE to the skill sets they're certified for, plus their latest
+          location and shift schedule. Lets a dispatcher pick the right person for
+          a specialized job.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          When a P1 ticket comes in for a specialized machine, this is where the
+          dispatcher answers "who in this cluster is qualified and on shift?".
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Skill map</strong> — engineer rows × skill columns.</li>
+          <li><strong>Skill list</strong> — flat list of (engineer, skill) pairs.</li>
+          <li><strong>Latest Location</strong> — last known FE location.</li>
+          <li><strong>Schedule</strong> — engineer shift overview.</li>
+        </ul>
+      </section>
+
+      <section id="fsm-time-off" class="view-section">
+        <h2>Time Off</h2>
+        <p class="section-meta">Field Service Management / Web App / time_off.json</p>
+        <p>
+          Time-off requests for field engineers. Lists each request with its dates,
+          type, and approval status.
+        </p>
+
+        <h3>Purpose</h3>
+        <p>
+          So the dispatcher knows who is unavailable when scheduling. Also the audit
+          trail for HR.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Time Off List</strong> — table of requests, paginated.</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- MODULE: CUSTOMER                                             -->
+      <!-- ============================================================ -->
+      <div class="module-heading">
+        <p class="label">Module</p>
+        <h2>Customer</h2>
+        <p>The customer book. Two parallel hierarchies — companies and contacts — each with a list view and a single-record detail view.</p>
+      </div>
+
+      <section id="cust-companies" class="view-section">
+        <h2>Companies</h2>
+        <p class="section-meta">Field Service Management / Web App / customer / company.json</p>
+        <p>
+          Master list of customer companies. Each row is one company; click into it
+          to open Company Detail.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Companies table</strong> — paginated, searchable.</li>
+          <li>Total count actions row.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul><li>Row click → <a href="#cust-company-detail">Company Detail</a>.</li></ul>
+      </section>
+
+      <section id="cust-company-detail" class="view-section">
+        <h2>Company Detail</h2>
+        <p class="section-meta">Field Service Management / Web App / customer / company_detail_view.json</p>
+        <p>
+          Single-company view. KPIs at the top, then the company's contacts, the jobs
+          opened against it, visit history, expenses, and checklists.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Company KPI</strong> — counts (total jobs, open, completed, etc.).</li>
+          <li><strong>Company details</strong> — name, address, primary contact, status.</li>
+          <li><strong>Contacts</strong> — table of people at the company.</li>
+          <li><strong>Jobs</strong> — every ticket opened against the company.</li>
+          <li><strong>Jobs by category</strong> — chart.</li>
+          <li><strong>Visit / Expense / Checklist</strong> — operational drill-downs.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul>
+          <li>Click a job row → <a href="#fsm-job-detail">Job Detail</a>.</li>
+          <li>Click a contact row → <a href="#cust-contact-detail">Contact Detail</a>.</li>
+        </ul>
+      </section>
+
+      <section id="cust-contacts" class="view-section">
+        <h2>Contacts</h2>
+        <p class="section-meta">Field Service Management / Web App / customer / contact.json</p>
+        <p>
+          Master list of contacts (people) across all customer companies. The
+          counterpart to the Companies list.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Contacts table</strong> — paginated, searchable.</li>
+          <li>Total count actions row.</li>
+        </ul>
+
+        <h3>Key interactions</h3>
+        <ul><li>Row click → <a href="#cust-contact-detail">Contact Detail</a>.</li></ul>
+      </section>
+
+      <section id="cust-contact-detail" class="view-section">
+        <h2>Contact Detail</h2>
+        <p class="section-meta">Field Service Management / Web App / customer / contact_detailed_view.json</p>
+        <p>
+          Single-contact view — the same operational drill-downs as Company Detail
+          but scoped to the tickets the contact personally raised.
+        </p>
+
+        <h3>Sections on the page</h3>
+        <ul>
+          <li><strong>Contact KPI</strong> — counts.</li>
+          <li><strong>Contact details</strong> — name, role, phone, email, parent company.</li>
+          <li><strong>Jobs</strong> — tickets raised by this contact.</li>
+          <li><strong>Jobs by category</strong> — chart.</li>
+          <li><strong>Visit / Expense / Checklist</strong> — operational drill-downs.</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================ -->
+      <!-- MODULE: CONTAINER                                            -->
+      <!-- ============================================================ -->
+      <div class="module-heading">
+        <p class="label">Module</p>
+        <h2>Container</h2>
+        <p>The shell file that wires the FSM module together. Not a user-facing screen.</p>
+      </div>
+
+      <section id="fsm-container" class="view-section">
+        <h2>FSM Master Container</h2>
+        <p class="section-meta">Field Service Management / Web App / field_service_management.json</p>
+        <p>
+          Master container — labelled <em>Team Leader Dashboard</em> internally. Defines
+          the FSM sidebar, the routes between every FSM view, and the schedule
+          stub. Edit this when you add or rename a FSM screen.
+        </p>
+
+        <h3>Notes</h3>
+        <ul>
+          <li>Sidebar order, icons, and active-state colors live in this file.</li>
+          <li>Adding a new FSM view? Register its <code>app_id</code> + <code>view_id</code> here so the sidebar links pick it up.</li>
+          <li>The schedule stub here is superseded by <a href="#fsm-schedule">schedule.json</a> — keep edits there.</li>
+        </ul>
+      </section>
+
+      <p class="page-lead" style="margin-top: 36px; font-size: 14px;">
+        That's every web view in Action Labs.
+        <a href="../walkthrough_videos/videos.html">Walkthrough videos →</a>
+      </p>
+    </main>
+  </div>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
