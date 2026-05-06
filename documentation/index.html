@@ -300,36 +300,88 @@
         <h2>Main Dashboard</h2>
         <p class="section-meta">Field Service Management / Web App / main_dashboard.json</p>
         <p>
-          The home screen of the FSM module. Shows live ticket status, ETA-based KPIs,
-          and a priority-level breakdown across all clusters. This is the screen
-          team leaders refresh through the day.
-        </p>
-
-        <h3>Purpose</h3>
-        <p>
-          One-glance answer to "what does my cluster look like right now?" — what's
-          open, what's in transit, what's on hold for spares, what slipped past ETA.
+          The home screen a team leader lands on. A filter bar at the top, a wall of
+          status KPI counts, four "live" ticket lists for what's happening right now,
+          and three charts at the bottom for slicing the same dataset.
         </p>
 
         <h3>Filters</h3>
+        <p>
+          One filter row drives the whole page. Pick the values you want and click
+          <strong>Apply Filters</strong> — every KPI count, every Live Job Status list,
+          and every analytics chart re-runs against the new window in a single chained
+          <code>update_data</code> action.
+        </p>
         <ul>
-          <li>Cluster (dropdown — defaults to "All Clusters")</li>
-          <li>Date range (from / to)</li>
+          <li><strong>Cluster</strong> — dropdown, defaults to <em>All Clusters</em>.</li>
+          <li><strong>From Date</strong> — defaults to today minus 30 days.</li>
+          <li><strong>To Date</strong> — defaults to today.</li>
+          <li><strong>Apply Filters</strong> — the button that fans the new filter values out to every widget on the page.</li>
         </ul>
 
-        <h3>Sections on the page</h3>
+        <h3>KPI cards</h3>
+        <p>
+          Fourteen cards across the top of the dashboard. Each card's number is a
+          count of tickets matching that bucket inside the active filter window.
+        </p>
+        <div class="callout info">
+          <strong>Click-through behaviour.</strong> Clicking any
+          <em>status</em> KPI card navigates to the
+          <a href="#fsm-jobs">Jobs list</a> with that status pre-applied as a filter
+          argument — only those tickets show up on the destination page, so the
+          dashboard count and the list you land on are always the same set.
+          The three "metric" cards (Total Tickets, Avg Visit Time, Pending Visits) are
+          read-only and don't navigate.
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Card</th><th>What it counts</th><th>On click → Jobs list filtered by</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Total Tickets</td><td>All tickets in the filter window.</td><td><span class="badge gray">no nav</span></td></tr>
+              <tr><td>Pending Acceptance</td><td>Tickets whose status begins with <em>Pending</em>.</td><td><code>status LIKE '%Pending%'</code></td></tr>
+              <tr><td>Accepted + Open</td><td>Tickets accepted by an engineer but not yet started.</td><td><code>status starts with "Accept"</code></td></tr>
+              <tr><td>ETA Updated</td><td>Engineer has acknowledged and put down an ETA.</td><td><code>status = "ETA Updated"</code></td></tr>
+              <tr><td>Engineer in Transit</td><td>FE is on the way to the customer site.</td><td><code>status = "Engineer in Transit"</code></td></tr>
+              <tr><td>Arrival on Site</td><td>FE has reached the site.</td><td><code>status = "Arrived on Site"</code></td></tr>
+              <tr><td>Job Start</td><td>Work has started on site.</td><td><code>status = "Job Start"</code></td></tr>
+              <tr><td>Resolved</td><td>Engineer closed the ticket cleanly.</td><td><code>status = "Resolved"</code></td></tr>
+              <tr><td>Avg Visit Time (hrs)</td><td>Mean time on site across all completed visits.</td><td><span class="badge gray">no nav</span></td></tr>
+              <tr><td>Pending Visits</td><td>Visits scheduled but not yet checked in.</td><td><span class="badge gray">no nav</span></td></tr>
+              <tr><td>Closed</td><td>Administratively closed tickets.</td><td><code>status = "Closed"</code></td></tr>
+              <tr><td>Resolved Incomplete</td><td>Closed but with a pending sub-task.</td><td><code>status LIKE '%Resolved Incomplete%'</code></td></tr>
+              <tr><td>On Hold Spares</td><td>Waiting on parts.</td><td><code>status = "On-Hold Waiting on Parts"</code></td></tr>
+              <tr><td>For Revisit</td><td>Customer asked for a return visit.</td><td><code>status LIKE '%For Revisit%'</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Live Job Status</h3>
+        <p>
+          Four side-by-side lists below the KPI strip, one for each in-flight state.
+          Each row in a list is a single ticket: the <strong>ticket ID</strong> and
+          a coloured <strong>priority badge</strong> — Urgent, High, Medium, or Low.
+          Clicking a row opens the <a href="#fsm-job-detail">Job Detail View</a> for
+          that ticket. Lists with nothing in them show a "No data" empty state.
+        </p>
         <ul>
-          <li><strong>Live Job Status</strong> — counts of accepted/open, in-transit, resolved, closed, for-revisit, on-hold, etc.</li>
-          <li><strong>ETA tickets</strong> &amp; <strong>ETA updated</strong> — slippage tracking.</li>
-          <li><strong>Average visit time</strong> KPI.</li>
-          <li><strong>Priority Levels</strong> — count by P1 / P2 / P3.</li>
-          <li><strong>Analytics</strong> section — charts derived from the same dataset.</li>
+          <li><strong>ETA Updated</strong> — engineer has acknowledged and put down an ETA, but hasn't moved yet.</li>
+          <li><strong>Engineer in Transit</strong> — FE is on the road to the site.</li>
+          <li><strong>Arrival on Site</strong> — FE has reached the customer.</li>
+          <li><strong>Job Start</strong> — work is in progress.</li>
         </ul>
 
-        <h3>Key interactions</h3>
+        <h3>Analytics</h3>
+        <p>
+          Three charts at the bottom of the page. They share the same filter window
+          as everything above — change a filter and they re-render along with the rest.
+        </p>
         <ul>
-          <li>Sidebar navigation to every other FSM screen.</li>
-          <li>Cluster &amp; date filter applies to all status counts.</li>
+          <li><strong>SLA Requests</strong> — donut chart of tickets by SLA status (within / breached / at risk). Source: <code>sla_status_data</code>.</li>
+          <li><strong>Types of Request</strong> — bar chart of ticket counts by request type (install / repair / preventive / etc.). Source: <code>type_of_request_data</code>.</li>
+          <li><strong>Priority Levels</strong> — bar chart of ticket counts split by Urgent / High / Medium / Low. Source: <code>priority_chart_data</code>.</li>
         </ul>
       </section>
 
