@@ -420,35 +420,46 @@
       <section id="fsm-schedule" class="view-section">
         <h2>Schedule / Dispatch Board</h2>
         <p class="section-meta">Field Service Management / Web App / schedule.json</p>
+
+        <div class="callout info">
+          <strong>New feature.</strong> A weekly dispatch board for visualising
+          and reassigning jobs across the team — replaces the old
+          "WhatsApp + spreadsheet" workflow.
+        </div>
+
         <p>
-          The weekly dispatch board. Technicians on the Y-axis, days of the week on
-          the X-axis, and a pool of unscheduled jobs alongside. Drag-and-drop a job
-          card onto a technician-day cell to assign it.
+          One screen, three regions, drag-and-drop between them.
         </p>
 
-        <h3>Purpose</h3>
-        <p>
-          The primary scheduling tool. Replaces the old "WhatsApp + spreadsheet"
-          loop with a visual board so leads can see capacity at a glance.
-        </p>
-
-        <h3>Filters</h3>
+        <h3>Layout</h3>
         <ul>
-          <li>Cluster (dropdown)</li>
-          <li>Employee (dropdown)</li>
-          <li>Schedule stats summary at the top</li>
+          <li><strong>Left column — Technicians.</strong> One row per field engineer in the cluster. This is who you're scheduling.</li>
+          <li><strong>Middle — Week grid.</strong> Seven columns, one per day of the current week. The cell at <em>(technician, date)</em> shows every job already assigned to that technician for that date.</li>
+          <li><strong>Right column — Unassigned jobs.</strong> The pool of tickets that haven't been put on anyone's calendar yet. This drains as you assign.</li>
         </ul>
 
-        <h3>Key interactions</h3>
+        <p>
+          So at a glance you can see: who is busy on which day, who has capacity,
+          and what's still waiting to be handed out.
+        </p>
+
+        <h3>Drag-and-drop interactions</h3>
         <ul>
-          <li>Drag job card → technician × date cell to assign.</li>
-          <li>Click a job card to view or edit its details.</li>
-          <li>Unscheduled-jobs pool drains as you assign.</li>
+          <li><strong>Assign an unassigned job</strong> — pick up a job card from the right-hand pool and drop it on any <em>(technician × date)</em> cell in the week grid. The job leaves the pool and shows up on that technician's day.</li>
+          <li><strong>Re-assign an already-scheduled job</strong> — pick up a job card already on the grid and drop it on a different cell. Use this to move a job between technicians, between days, or both at once.</li>
+        </ul>
+
+        <h3>Filters &amp; summary</h3>
+        <ul>
+          <li><strong>Cluster</strong> dropdown — narrows the technician list.</li>
+          <li><strong>Employee</strong> dropdown — focus the board on one person.</li>
+          <li><strong>Priority badges at the top</strong> — running counts of Urgent, High, Medium, Low, Severity 4, and None across the visible board (driven by <code>sch_stats</code>).</li>
         </ul>
 
         <div class="callout">
-          <strong>Layout note:</strong> the sticky-filter pattern with dropdowns is
-          known not to render correctly on this view — keep filters non-sticky.
+          <strong>Layout note for builders:</strong> the sticky-filter pattern with
+          dropdowns is known not to render correctly on this view — keep the filter
+          row non-sticky.
         </div>
       </section>
 
